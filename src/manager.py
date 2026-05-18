@@ -116,3 +116,10 @@ class Manager:
     def is_tenant_blacklisted(self, tenant_name: str) -> bool:
         blacklist = ["Zły Najemca", "Oszust Niejaki"]
         return tenant_name in blacklist
+      
+    def get_invalid_amount_transfers(self, min_amount: float, max_amount: float) -> list:
+        invalid_transfers = []
+        for transfer in self.transfers:
+            if transfer.amount_pln < min_amount or transfer.amount_pln > max_amount:
+                invalid_transfers.append(transfer)
+        return invalid_transfers
