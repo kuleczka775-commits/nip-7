@@ -36,7 +36,7 @@ def test_deposits_calculation():
     manager = Manager(Parameters())
     
     deposit_balance = manager.check_deposits()
-    assert deposit_balance == -8700.0 # no deposit in transfers
+    assert deposit_balance == -8700.0
 
     manager.transfers.append(Transfer(
         tenant='tenant-1',
@@ -48,13 +48,13 @@ def test_deposits_calculation():
     ))
 
     deposit_balance = manager.check_deposits()
-    assert deposit_balance == -7700.0 # 1000.0 deposit in transfers
+    assert deposit_balance == -7700.0
 
 def test_annual_balance_calculation():
     manager = Manager(Parameters())
     
     annual_balance = manager.get_annual_balance(2025)
-    assert annual_balance == 6490.0 # 7500.0 in transfers minus 910.0 in bills
+    assert annual_balance == 6490.0
 
     manager.bills.append(Bill(
         apartment='apart-polanka',
@@ -75,7 +75,7 @@ def test_annual_balance_calculation():
     ))
 
     annual_balance = manager.get_annual_balance(2025)
-    assert annual_balance == 1490.0 # 7500.0 in transfers minus 910.0 in bills minus new bills 500.0 and 4500.0
+    assert annual_balance == 1490.0
 
 def test_apartment_has_any_bills():
     manager = Manager(Parameters())
@@ -85,3 +85,10 @@ def test_apartment_has_any_bills():
 
     has_bills = manager.has_any_bills('apart-polanka', 2025, 3)
     assert has_bills == False
+    
+def test_validate_transfer_amounts():
+    manager = Manager(Parameters())
+    
+    assert len(manager.get_invalid_amount_transfers(min_amount=1000.0, max_amount=3000.0)) == 0
+    
+    assert len(manager.get_invalid_amount_transfers(min_amount=3000.0, max_amount=5000.0)) == 3
