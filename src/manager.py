@@ -112,3 +112,11 @@ class Manager:
         if apartment_key not in self.apartments:
             raise ValueError("Apartment key does not exist")
         return any([bill for bill in self.bills if bill.apartment == apartment_key and bill.settlement_year == year and bill.settlement_month == month])
+    
+    def find_orphan_transfers(self) -> list:
+        orphan_transfers = []
+        for transfer in self.transfers:
+            # Sprawdzamy czy tenant z przelewu istnieje w kluczach słownika self.tenants
+            if transfer.tenant not in self.tenants:
+                orphan_transfers.append(transfer)
+        return orphan_transfers
