@@ -116,7 +116,17 @@ class Manager:
     def find_orphan_transfers(self) -> list:
         orphan_transfers = []
         for transfer in self.transfers:
-            # Sprawdzamy czy tenant z przelewu istnieje w kluczach słownika self.tenants
             if transfer.tenant not in self.tenants:
                 orphan_transfers.append(transfer)
         return orphan_transfers
+      
+    def is_tenant_blacklisted(self, tenant_name: str) -> bool:
+        blacklist = ["Zły Najemca", "Oszust"]
+        return tenant_name in blacklist
+      
+    def get_invalid_amount_transfers(self, min_amount: float, max_amount: float) -> list:
+        invalid_transfers = []
+        for transfer in self.transfers:
+            if transfer.amount_pln < min_amount or transfer.amount_pln > max_amount:
+                invalid_transfers.append(transfer)
+        return invalid_transfers
