@@ -112,3 +112,7 @@ class Manager:
         if apartment_key not in self.apartments:
             raise ValueError("Apartment key does not exist")
         return any([bill for bill in self.bills if bill.apartment == apartment_key and bill.settlement_year == year and bill.settlement_month == month])
+    
+    def is_tenant_blacklisted(self, tenant_name: str) -> bool:
+        blacklist = ["Zły Najemca", "Oszust Niejaki"]
+        return tenant_name in blacklist
