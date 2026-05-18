@@ -113,6 +113,10 @@ class Manager:
             raise ValueError("Apartment key does not exist")
         return any([bill for bill in self.bills if bill.apartment == apartment_key and bill.settlement_year == year and bill.settlement_month == month])
     
+    def is_tenant_blacklisted(self, tenant_name: str) -> bool:
+        blacklist = ["Zły Najemca", "Oszust Niejaki"]
+        return tenant_name in blacklist
+      
     def get_invalid_amount_transfers(self, min_amount: float, max_amount: float) -> list:
         invalid_transfers = []
         for transfer in self.transfers:

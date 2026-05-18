@@ -86,6 +86,13 @@ def test_apartment_has_any_bills():
     has_bills = manager.has_any_bills('apart-polanka', 2025, 3)
     assert has_bills == False
     
+def test_tenant_is_blacklisted():
+    manager = Manager(Parameters())
+    
+    assert manager.is_tenant_blacklisted("Jan Nowak") is False
+    
+    assert manager.is_tenant_blacklisted("Zły Najemca") is True
+    
 def test_validate_transfer_amounts():
     manager = Manager(Parameters())
     
