@@ -94,9 +94,9 @@ def test_find_unassigned_transfers():
 def test_tenant_is_blacklisted():
     manager = Manager(Parameters())
     
-    assert manager.is_tenant_blacklisted("Jan Nowak") is False
+    assert manager.is_tenant_blacklisted("Jan Kowalski") is True
     
-    assert manager.is_tenant_blacklisted("Zły Najemca") is True
+    assert manager.is_tenant_blacklisted("Anna Nowak") is False
     
 def test_validate_transfer_amounts():
     manager = Manager(Parameters())
