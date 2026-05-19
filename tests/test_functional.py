@@ -86,6 +86,11 @@ def test_apartment_has_any_bills():
     has_bills = manager.has_any_bills('apart-polanka', 2025, 3)
     assert has_bills == False
     
+def test_find_unassigned_transfers():
+    manager = Manager(Parameters())
+    
+    assert len(manager.find_orphan_transfers()) == 0
+    
 def test_tenant_is_blacklisted():
     manager = Manager(Parameters())
     
